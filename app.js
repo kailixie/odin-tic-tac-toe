@@ -2,6 +2,8 @@
 // displayController), use a module. If you need multiples of something (players!), 
 // create them with factories.
 
+const message = document.querySelector(".message")
+
 // TIC TAC TOE BOARD
 
 let gameBoard = [
@@ -55,14 +57,20 @@ const playerFactory = (name, marker, isComputer) => {
 }
 
 const player1 = playerFactory("kevin", "X", false)
-const player2 = playerFactory("chris", "O", true)
+const player2 = playerFactory("BG", "O", true)
 
 let turns = 0
 
 function turnTracker(turns) {
-    if (turns % 2 === 0) {
+    console.log("turns", turns)
+    if (turns === 8) {
+        message.textContent = "Tie!"
+    }
+    else if (turns % 2 === 0) {
+        message.textContent = `${player1.name}'s turn`
         return player1
     } else {
+        message.textContent = `${player2.name}'s turn`
         return player2
     } 
 }
@@ -112,9 +120,9 @@ function checkWin(gameBoard, turn) {
             (gameBoard[0] === gameBoard[4]) && (gameBoard[4] === gameBoard[8])
         || (gameBoard[2] !== "") && 
             (gameBoard[2] === gameBoard[4]) && (gameBoard[4] === gameBoard[6])
-    ){
-            alert(`${turn.name} wins`) 
-    }
+    ) {
+        message.textContent = `${turn.name} wins`
+    } 
 } 
 
 // PLAY AGAINST COMPUTER
@@ -133,6 +141,7 @@ function computerMove() {
 
 
 function startGame() {
+    clearBoard();
     createBoard();
     // const player1 = playerFactory("kevin", "X")
     // const player2 = playerFactory("chris", "O")
@@ -142,5 +151,5 @@ function startGame() {
 const startBtn = document.querySelector("#startBtn")
 startBtn.setAttribute("onclick", "startGame()")
 
-const clearBtn = document.querySelector("#clearBtn")
-clearBtn.setAttribute("onclick", "clearBoard()")
+// const clearBtn = document.querySelector("#clearBtn")
+// clearBtn.setAttribute("onclick", "clearBoard()")
