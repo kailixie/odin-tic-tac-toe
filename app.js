@@ -56,8 +56,8 @@ const playerFactory = (name, marker, isComputer) => {
     return {name, marker, isComputer}
 }
 
-const player1 = playerFactory("kevin", "X", false)
-const player2 = playerFactory("BG", "O", true)
+let player1 = null
+let player2 = null
 
 let turns = 0
 
@@ -139,13 +139,42 @@ function computerMove() {
     makeMove(`box-${pick}`)
 }
 
+const nameModal = document.querySelector(".nameModal")
+
+const submitNames = document.querySelector("#submitNames")
+
+submitNames.addEventListener("click", (e) => {
+    e.preventDefault();
+    nameModal.classList.remove("active")
+
+    return P1name, P2name
+})
+
+function closeModal(e) {
+    nameModal.classList.remove("active")
+}
+
+let vsComputer = "no"
 
 function startGame() {
     clearBoard();
+    if (vsComputer === "yes") {
+        player1 = playerFactory("Human", "X", false)
+        player2 = playerFactory("BG", "O", true)
+    }
+    else {
+        nameModal.classList.add("active")
+        let P1 = document.getElementById("nameP1")
+        let P2 = document.getElementById("nameP2")
+        let P1name = P1.value
+        let P2name = P2.value
+
+        player1 = playerFactory(`${P1name}`, "X", false)
+        player2 = playerFactory(`${P2name}`, "O", false)
+    }
     createBoard();
-    // const player1 = playerFactory("kevin", "X")
-    // const player2 = playerFactory("chris", "O")
 }
+
 
 
 const startBtn = document.querySelector("#startBtn")
